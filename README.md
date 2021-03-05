@@ -1,7 +1,5 @@
 # Shoredark
 
----
-
 A private bot for a server with good friends
 
 ## This bot runs with
