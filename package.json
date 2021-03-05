@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "forever start -c 'ts-node shoredark.ts'",
+    "start": "ts-node shoredark.ts",
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc",
     "prod": "node build/shoredark.js"
