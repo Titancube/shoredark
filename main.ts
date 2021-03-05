@@ -1,18 +1,24 @@
-import { Client } from '@typeit/discord'
+import { Client } from "@typeit/discord";
 import * as dotenv from 'dotenv'
-
 dotenv.config()
 
-async function start() {
-    const client = new Client({
-        classes: [
-            `./*.ts`
-        ],
-        silent: false,
-        variablesChar: "$"
-    })
+export class Main {
+  private static _client: Client;
 
-    await client.login(process.env.BOT_TOKEN)
+  static get Client(): Client {
+    return this._client;
+  }
+
+  static start() {
+    this._client = new Client();
+    this._client.login(
+      process.env.CLIENT_TOKEN,
+      `${__dirname}/discords/*.ts`,
+      `${__dirname}/discords/*.js`
+    );
+
+    console.log(Client.getCommands());
+  }
 }
 
-start()
+Main.start();
