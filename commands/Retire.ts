@@ -25,9 +25,13 @@ export abstract class Hello {
             if (agents) {
                 str = ''
                 agents.forEach((v) => {
-                    str = str + '\n' + `\`\`\`` + '\n' + `${v.name}` + '\n' + `'${v.variant} - ${v.status === true ? '현역' : '전역'}' | 전역일: ${format(v.dischargeDate, 'yyyy년 MM월 dd일')} | 잔여일수: ${formatDistanceToNowStrict(v.dischargeDate, { unit: 'day', locale: ko })}\`\`\``
+                    str = str +
+                        '\n\n' +
+                        `${v.name}` +
+                        '\n' +
+                        `'${v.variant} - ${v.status === true ? '현역' : '전역'}' | 전역일: ${format(v.dischargeDate, 'yyyy년 MM월 dd일')} | 잔여일수: ${formatDistanceToNowStrict(v.dischargeDate, { unit: 'day', locale: ko })}`
                 })
-                return str
+                return '```\n전역일 일람표' + str + '\n```'
             } else {
                 str = `SERVER ERROR`
                 return str
