@@ -7,8 +7,11 @@
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "declaration": true,
     "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "es2017",
