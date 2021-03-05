@@ -11,12 +11,12 @@ export class DiscordApp {
   onMessage(
     [message]: ArgsOf<"message">,
     client: Client
-  ) {
+  ): void {
     console.log(message);
   }
 
   @CommandNotFound()
-  notFoundA(command: CommandMessage) {
-    command.reply("Command not found");
+  notFoundA(command: CommandMessage): void {
+    command.channel.send("그런 거 없음");
   }
 }
