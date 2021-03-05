@@ -17,7 +17,7 @@ export class Main {
       `${__dirname}/discords/*.js`
     );
 
-    console.log(Client.getCommands());
+    console.log('Shorelight bot is up and running!');
   }
 }
 
