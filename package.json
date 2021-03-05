@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node main.ts",
+    "start": "ts-node shoredark.ts",
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc",
-    "prod": "node build/Main.js"
+    "prod": "node build/shoredark.js"
   },
   "author": {
     "email": "info@titancube.me",
