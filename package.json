@@ -1,6 +1,6 @@
 {
   "name": "shoredark",
-  "version": "0.0.1-pre",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "ts-node main.ts",
