@@ -11,17 +11,17 @@ export abstract class Hello {
 
     // thanks to 7OAST
     showDischargeDate(date: number | Date): string {
-        const dateInt = parseInt(date.toString())
+        const distance = parseInt(formatDistanceToNowStrict(date, { addSuffix: false, unit: 'second' }))
 
-        if (dateInt < 86400) {
-            if (dateInt < 3600) {
-                const resultTime = Math.floor(dateInt / 24);
-                const remainder = dateInt % 24;
+        if (distance < 86400) {
+            const resultTime = Math.floor(distance / 3600);
+            if (distance < 3600) {
+                const remainder = Math.floor(distance / 60);
 
                 return `${resultTime}시간 ${remainder}분`
             }
         } else {
-            return format(date, 'yyyy년 MM월 dd일')
+            return formatDistanceToNowStrict(date, { unit: 'day', locale: ko })
         }
     }
 
@@ -44,7 +44,7 @@ export abstract class Hello {
                         '\n\n' +
                         `${v.name}` +
                         '\n' +
-                        `+ ${v.variant} | 전역일: ${this.showDischargeDate(v.dischargeDate)} | 잔여일수: ${formatDistanceToNowStrict(v.dischargeDate, { unit: 'day', locale: ko })}`
+                        `+ ${v.variant} | 전역일: ${format(v.dischargeDate, 'yyyy년 MM월 dd일')} | 잔여일수: ${this.showDischargeDate(v.dischargeDate)}`
                 })
                 return '```diff\n- 전역일 일람표' + str + '\n```'
             } else {
