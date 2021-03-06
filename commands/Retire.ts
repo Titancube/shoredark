@@ -43,7 +43,7 @@ export abstract class Hello {
                         '\n\n' +
                         `${v.name}` +
                         '\n' +
-                        `'+ ${v.variant} | 전역일: ${this.showDischargeDate(v.dischargeDate)} | 잔여일수: ${formatDistanceToNowStrict(v.dischargeDate, { unit: 'day', locale: ko })}`
+                        `+ ${v.variant} | 전역일: ${this.showDischargeDate(v.dischargeDate)} | 잔여일수: ${formatDistanceToNowStrict(v.dischargeDate, { unit: 'day', locale: ko })}`
                 })
                 return '```diff\n- 전역일 일람표' + str + '\n```'
             } else {
