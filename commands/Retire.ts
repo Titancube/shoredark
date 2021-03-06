@@ -20,9 +20,8 @@ export abstract class Hello {
 
                 return `${resultTime}시간 ${remainder}분`
             }
-            else {
-                return format(date, 'yyyy년 MM월 dd일')
-            }
+        } else {
+            return format(date, 'yyyy년 MM월 dd일')
         }
     }
 
