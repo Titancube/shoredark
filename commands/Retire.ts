@@ -11,10 +11,12 @@ export abstract class Hello {
 
     // thanks to 7OAST
     showDischargeDate(date: number | Date): string {
-        if (date < 86400) {
-            if (date < 3600) {
-                const resultTime = Math.floor(parseInt(date.toString()) / 24);
-                const remainder = parseInt(date.toString()) % 24;
+        const dateInt = parseInt(date.toString())
+
+        if (dateInt < 86400) {
+            if (dateInt < 3600) {
+                const resultTime = Math.floor(dateInt / 24);
+                const remainder = dateInt % 24;
 
                 return `${resultTime}시간 ${remainder}분`
             }
