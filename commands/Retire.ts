@@ -32,7 +32,7 @@ export abstract class Hello {
         if (r) {
             r.forEach((doc) => {
                 agents.push({
-                    name: doc.id,
+                    name: doc.data().name,
                     dischargeDate: doc.data().dischargeDate.toDate(),
                     variant: doc.data().variant
                 })
