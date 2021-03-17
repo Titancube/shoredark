@@ -11,13 +11,21 @@ export abstract class Hello {
 
     // thanks to 7OAST
     showDischargeDate(date: number | Date): string {
+        if (date < new Date) { return '전역' }
+
         const distance = parseInt(formatDistanceToNowStrict(date, { addSuffix: false, unit: 'second' }))
 
         if (distance < 86400) {
+
             const resultTime = Math.floor(distance / 3600);
+            const remainder = Math.floor(distance % 3600 / 60)
+
+
+
             if (distance < 3600) {
                 const remainder = Math.floor(distance / 60);
-
+                return `${remainder}분`
+            } else {
                 return `${resultTime}시간 ${remainder}분`
             }
         } else {
