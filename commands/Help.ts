@@ -1,4 +1,4 @@
-import { Client, Command, CommandMessage, Description, Infos } from '@typeit/discord'
+import { Client, Command, CommandMessage, Infos } from '@typeit/discord'
 
 export abstract class Help {
 
@@ -6,9 +6,8 @@ export abstract class Help {
     @Infos({
         command: `도움`,
         detail: '`$도움 <명령어>`',
-        description: ''
+        description: '* 특정 명령어에 대한 도움말을 확인할 수 있습니다.'
     })
-    @Description(`* Get general info about all commands`)
     private async help(command: CommandMessage): Promise<void> {
         const { mTarget } = command.args
         const details = Client.getCommands();
