@@ -7,7 +7,7 @@ export abstract class Hello {
     @Command("전역")
     @Infos({
         command: `전역`,
-        detail: '`$전역',
+        detail: '`$전역`',
         description: '* 복무중인 인원에 대한 전역일과 남은 시간을 확인할 수 있습니다.'
     })
     async retire(command: CommandMessage): Promise<void> {
