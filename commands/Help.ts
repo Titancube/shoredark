@@ -17,8 +17,7 @@ export abstract class Help {
         const closer = '\n```'
         if (!mTarget) {
             details.forEach(v => {
-                str = str + v.infos.command + '\n'
-                str = `${str} + * ${v.infos.command} - ${v.infos.detail}`
+                str = `${str} * ${v.infos.command} - ${v.infos.detail}`
             })
             command.channel.send(title + opener + str + closer)
         } else {
