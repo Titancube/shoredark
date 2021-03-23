@@ -1,15 +1,13 @@
-import { Command, CommandMessage } from '@typeit/discord'
+import { Command, CommandMessage, Infos } from '@typeit/discord'
 import db from '../plugins/firebase'
 
 export abstract class Penis {
-
-    description: `\`$penis\``
-    detail: `\`$penis\`
-    
-    You get what you get
-    `
-
     @Command("ㅈ")
+    @Infos({
+        command: `ㅈ`,
+        detail: '`$ㅈ`',
+        description: '* 신이 주사위를 굴립니다.'
+    })
     private async penis(command: CommandMessage): Promise<void> {
         const testicles = '3'
         const glans = 'D'
@@ -22,11 +20,12 @@ export abstract class Penis {
 
         const penisConstructor = (n: number): number => {
 
-            if (n < 95 || n + 1 > 500) {
+            if (n < 80 || n + 1 > 500 || n + penisConstructor(fate()) > 500) {
+                command.channel.send(`신이 주사위를 굴렸습니다!`)
                 return n
             }
-
-            return n + n * penisConstructor(fate())
+            command.channel.send(`한번 더!`)
+            return n + penisConstructor(fate())
         }
 
         const godHasSpoken = async () => {
