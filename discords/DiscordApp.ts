@@ -1,4 +1,4 @@
-import { CommandNotFound, Discord, CommandMessage } from "@typeit/discord";
+import { CommandNotFound, Discord } from "@typeit/discord";
 import * as Path from "path";
 
 @Discord("$", {
@@ -8,7 +8,7 @@ import * as Path from "path";
 })
 export class DiscordApp {
   @CommandNotFound()
-  notFoundA(command: CommandMessage): void {
-    command.channel.send("ㄹㅇㅋㅋ");
+  notFoundA(): void {
+    return
   }
 }
