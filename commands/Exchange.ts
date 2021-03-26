@@ -1,7 +1,7 @@
 import { Command, CommandMessage, Infos } from '@typeit/discord'
 import axios from 'axios'
 
-export abstract class Help {
+export abstract class exchange {
 
     @Command("환율 :_amount :baseCurrency :targetCurrency")
     @Infos({
@@ -12,7 +12,7 @@ export abstract class Help {
 * \`기축통화\` 를 별도로 설정하지 않을 시 대한민국 원(KRW)으로 자동 설정됩니다.
 * \`대상통화\` 를 설정하면 해당 대상 통화를 가져옵니다.`,
     })
-    private async help(command: CommandMessage): Promise<void> {
+    private async exchange(command: CommandMessage): Promise<void> {
 
         const { _amount, baseCurrency, targetCurrency } = command.args
         const amount = parseInt(_amount)
