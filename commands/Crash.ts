@@ -1,4 +1,5 @@
 import { Command, CommandMessage, Infos } from "@typeit/discord";
+import * as path from "path";
 
 export abstract class Crash {
   @Command("아")
@@ -11,11 +12,19 @@ export abstract class Crash {
     const vc = command.member.voice.channel;
     if (vc) {
       const r = await vc.join();
-      const dispatcher = r.play("../assets/audio/radenika.mp3");
-      dispatcher.on("finish", () => {
-        command.guild.me.voice.channel.leave();
-        dispatcher.destroy();
-      });
+      const dispatcher = r.play(
+        path.join(__dirname, "../assets/audio/radenika.wav")
+      );
+
+      dispatcher
+        .on("finish", () => {
+          console.log("DONE");
+          dispatcher.destroy();
+          command.guild.me.voice.channel.leave();
+        })
+        .on("error", (e) => {
+          console.log(e);
+        });
     } else {
       command.channel.send("보이스 채널에 입장해주세요");
     }
