@@ -50,7 +50,7 @@ export abstract class exchange {
     }
 
     private getTargetCurrency(currency: string, x: string): string {
-        const currencies = ['USD', 'JPY', 'EUR', 'KRW']
+        const currencies = ['USD', 'JPY', 'EUR', 'KRW', 'GBP']
         x ? x : x = 'KRW'
         if (currency) {
             return `&symbols=${currency}`
@@ -77,6 +77,8 @@ export abstract class exchange {
                 return '일본 엔화 (JPY ￥)'
             case 'KRW':
                 return '한국 원화 (KRW ￦)'
+            case 'GBP':
+                return '영국 파운드 (GBP ￡)'
             default:
                 return c
         }
