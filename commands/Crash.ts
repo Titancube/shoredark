@@ -20,7 +20,6 @@ export abstract class Crash {
 
       dispatcher
         .on("finish", () => {
-          console.log("DONE");
           dispatcher.destroy();
           command.guild.me.voice.channel.leave();
         })
