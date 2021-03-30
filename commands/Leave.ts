@@ -10,7 +10,9 @@ export abstract class Leave {
   private async leave(command: CommandMessage): Promise<void> {
     const vc = command.member.voice.channel;
     if (vc) {
-      command.guild.me.voice.channel.leave();
+      vc.leave();
+    } else {
+      return;
     }
   }
 }
