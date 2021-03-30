@@ -7,7 +7,7 @@ export abstract class Crash {
     command: `재상`,
     detail: "`$재상 <variation>`",
     description:
-      "* 우리의 영웅 박재상씨가 현명한 단어를 내뱉습니다\n* <variation> : `옵, 여자, 어`",
+      "* 우리의 영웅 박재상씨가 현명한 단어를 내뱉습니다\n* <variation> : `옵, 여자, 어, 에, 야한여자, 정숙`",
   })
   private async crash(command: CommandMessage): Promise<void> {
     const { variation } = command.args;
