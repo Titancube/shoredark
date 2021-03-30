@@ -19,7 +19,7 @@ export abstract class Crash {
         path.join(__dirname, `../assets/audio/${this.getVariation(variation)}`)
       );
 
-      dispatcher.setVolume(0.75);
+      dispatcher.setVolume(0.5);
 
       dispatcher
         .on("finish", () => {
