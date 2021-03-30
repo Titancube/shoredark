@@ -16,7 +16,7 @@ export abstract class Crash {
         path.join(__dirname, "../assets/audio/radenika.wav")
       );
 
-      dispatcher.setVolume(0.75);
+      dispatcher.setVolume(0.25);
 
       dispatcher
         .on("finish", () => {
