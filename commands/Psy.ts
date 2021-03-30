@@ -34,7 +34,7 @@ export abstract class Crash {
     }
   }
 
-  private getVariation(v: string) {
+  private getVariation(v: string): string {
     switch (v) {
       default:
       case "옵":
@@ -43,6 +43,12 @@ export abstract class Crash {
         return "girl.mp3";
       case "어":
         return "uh.mp3";
+      case "에":
+        return "ee.mp3";
+      case "야한여자":
+        return "hentai_girl.mp3";
+      case "정숙":
+        return "silence.mp3";
     }
   }
 }
