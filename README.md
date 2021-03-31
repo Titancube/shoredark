@@ -1,32 +1,47 @@
 # Shoredark
 
-A private bot for a server with good friends
+A private Discord bot
 
-## This bot runs with
+## This bot uses
 
 - Node.js 14 LTS (Hosted on GCP)
+- Discord.js@12
 - Typescript
 - Firebase
-  - Cloud Firestore
+- pm2
 
-## Installation
+## Installation & running
+
+### Installation
 
 ```node
-npm install
-// OR
+// Installs dependencies (including pm2)
 yarn
+
+// Installs typescript support for pm2
+pm2 install typescript
+```
+
+### Run
+
+```node
+// Run
+yarn start
+
+// Run & keep it alive
+pm2 start shoredark.ts
 ```
 
 ## Setting up details
 
 ### Firebase
 
-You need a serviceAccount json file to run this bot on GCP inside `./static/`
-For detailed guide check the [official guide of Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart)
+You need a `serviceAccount.json` to run this bot on GCP inside `/static/`
+Check the [official guide of Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart)
 
 ### .env
 
-make `.env` file on root and add it with your bot token
+make `.env` on root with your bot's client token
 
 ```env
 CLIENT_TOKEN=<YOUR_BOT_TOKEN>
