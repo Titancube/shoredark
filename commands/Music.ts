@@ -4,35 +4,43 @@ interface Notes {
   note: string;
   num: number;
 }
+
 export abstract class Music {
   // list of all diatonic scales
   static diatonicScale = [
     {
       name: "이오니안",
+      name_en: "Ionian (Major)",
       scale: [0, 2, 4, 5, 7, 9, 11],
     },
     {
       name: "도리안",
+      name_en: "Dorian",
       scale: [0, 2, 3, 5, 7, 9, 10],
     },
     {
       name: "프리지안",
+      name_en: "Phrygian",
       scale: [0, 1, 3, 5, 7, 8, 10],
     },
     {
       name: "리디안",
+      name_en: "Lydian",
       scale: [0, 2, 4, 6, 7, 9, 11],
     },
     {
       name: "믹소리디안",
+      name_en: "Mixolydian",
       scale: [0, 2, 4, 5, 7, 9, 10],
     },
     {
       name: "에올리안",
+      name_en: "Aeolian (Natural minor)",
       scale: [0, 2, 3, 5, 7, 8, 10],
     },
     {
       name: "로크리안",
+      name_en: "Locrian",
       scale: [0, 1, 3, 5, 6, 8, 10],
     },
   ];
@@ -67,9 +75,13 @@ export abstract class Music {
       : "C";
     const scale = command.args.scale ? command.args.scale : "이오니안";
 
-    command.channel.send(
-      `근음이 ${key} 일 때의 ${scale} 스케일\n\`${Music.getScale(key, scale)}\``
-    );
+    Music.validate(key, scale)
+      ? command.channel.send(
+          `근음이 ${key} 일 때의 ${scale} 스케일 - ${Music.getEnglishName(
+            scale
+          )} scale\n\`${Music.getScale(key, scale)}\``
+        )
+      : command.channel.send("근음과 스케일을 정확히 입력해주세요.");
   }
 
   // Return shifted list of all notes matching to the given key as root note
@@ -89,13 +101,33 @@ export abstract class Music {
 
   // Return calculated scale
   private static getScale(key: string, scale: string): string {
+    if (!Music.diatonicScale.find((v) => v.name === scale)) {
+      return;
+    }
     const scaleNotesArray = scale
-      ? Music.diatonicScale.filter((v) => v.name === scale)[0].scale
+      ? Music.diatonicScale.find((v) => v.name === scale).scale
       : Music.diatonicScale[0].scale;
 
     const newNotes = Music.getNotes(key);
     const newScale = [];
     scaleNotesArray.forEach((n) => newScale.push(newNotes[n]));
     return newScale.join(", ");
+  }
+
+  // Return english name of the scale
+  private static getEnglishName(scale: string): string {
+    return Music.diatonicScale.find((e) => e.name === scale).name_en;
+  }
+
+  // Validate key and scale
+  private static validate(key: string, scale: string): boolean {
+    const validScales = [];
+    Music.diatonicScale.forEach((e) => validScales.push(e.name));
+    const validKeys = [];
+    Music.notes.forEach((e) => validKeys.push(e.note));
+
+    return !validKeys.includes(key) || !validScales.includes(scale)
+      ? false
+      : true;
   }
 }
