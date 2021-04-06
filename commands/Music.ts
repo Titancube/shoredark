@@ -58,7 +58,7 @@ export abstract class Music {
     command: `스케일`,
     detail: "`$스케일 <C ~ B> <이오니안 ~ 로크리안>`",
     description:
-      "* <C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <도리안 ~ 리디안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```",
+      "* <C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```",
   })
   private scale(command: CommandMessage) {
     const key = command.args.key
