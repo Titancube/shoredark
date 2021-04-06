@@ -61,6 +61,7 @@ export abstract class Music {
     { note: "B", num: 11 },
   ];
 
+  // Command `scale`
   @Command("스케일 :key :scale")
   @Infos({
     command: `스케일`,
@@ -69,19 +70,23 @@ export abstract class Music {
       "* <C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```",
   })
   private showScale(command: CommandMessage) {
+    // key: Assign `C` if argument does not exist.
     const key = command.args.key
       ? (command.args.key + "").charAt(0).toUpperCase() +
         (command.args.key + "").slice(1).toLowerCase()
       : "C";
+    // scale: Assign `Ionian` if argument does not exist
     const scale = command.args.scale ? command.args.scale : "이오니안";
 
     Music.validate(key, scale)
       ? command.channel.send(
+          // i.e `C Ionian scale`
           `근음이 ${key} 일 때의 ${scale} 스케일 - ${Music.getEnglishName(
             scale
           )} scale\n\`${Music.getScale(key, scale)}\``
         )
-      : command.channel.send("근음과 스케일을 정확히 입력해주세요.");
+      : // `Please input valid key and scale`
+        command.channel.send("근음과 스케일을 정확히 입력해주세요.");
   }
 
   // Return shifted list of all notes matching to the given key as root note
