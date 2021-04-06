@@ -24,7 +24,7 @@ export abstract class Voice {
       dispatcher
         .on("finish", () => {
           dispatcher.destroy();
-          command.guild.me.voice.channel.leave();
+          command.member.voice.channel.leave();
         })
         .on("error", (e) => {
           console.log(`
