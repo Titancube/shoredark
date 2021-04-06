@@ -4,7 +4,6 @@ interface Notes {
   note: string;
   num: number;
 }
-
 export abstract class Music {
   // list of all diatonic scales
   static diatonicScale = [
@@ -38,6 +37,7 @@ export abstract class Music {
     },
   ];
 
+  // List of all notes
   static notes = [
     { note: "C", num: 0 },
     { note: "Db", num: 1 },
@@ -52,21 +52,6 @@ export abstract class Music {
     { note: "Bb", num: 10 },
     { note: "B", num: 11 },
   ];
-
-  // static notesNumList = {
-  //   0: "C",
-  //   1: "Db",
-  //   2: "D",
-  //   3: "Eb",
-  //   4: "E",
-  //   5: "F",
-  //   6: "Gb",
-  //   7: "G",
-  //   8: "Ab",
-  //   9: "A",
-  //   10: "Bb",
-  //   11: "B",
-  // };
 
   @Command("스케일 :key :scale")
   @Infos({
@@ -87,6 +72,7 @@ export abstract class Music {
     );
   }
 
+  // Return shifted list of all notes matching to the given key as root note
   private static getNotes(key: string): Array<Notes> {
     const newNotesTemp = [
       ...Music.notes.slice(
@@ -101,6 +87,7 @@ export abstract class Music {
     return newNotes;
   }
 
+  // Return calculated scale
   private static getScale(key: string, scale: string): string {
     const scaleNotesArray = scale
       ? Music.diatonicScale.filter((v) => v.name === scale)[0].scale
