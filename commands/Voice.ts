@@ -105,9 +105,9 @@ export abstract class Voice {
     description: "* 보이스 채널에서 나갑니다",
   })
   private async leave(command: CommandMessage): Promise<void> {
-    const vc = command.member.voice.channel;
+    const vc = () => (command.member.voice.channel ? true : false);
     if (vc) {
-      vc.leave();
+      command.member.voice.channel.leave();
     } else {
       return;
     }
