@@ -58,19 +58,17 @@ export abstract class Voice {
   }
 
   private static getPsyVoice(commandArgument: string): string {
-    if (commandArgument) {
-      const filteredVoice = Voice.psyVariation.filter(
-        (variation) => variation.key === commandArgument
-      );
-      if (filteredVoice && filteredVoice.length > 0) {
-        if (Voice.psyVariation.includes(filteredVoice[0])) {
-          return filteredVoice[0].value;
-        } else {
-          return "op.mp3";
-        }
-      } else {
-        return "op.mp3";
-      }
+    const filteredVoice = Voice.psyVariation.filter(
+      (variation) => variation.key === commandArgument
+    );
+
+    if (
+      commandArgument &&
+      filteredVoice &&
+      filteredVoice.length > 0 &&
+      Voice.psyVariation.includes(filteredVoice[0])
+    ) {
+      return filteredVoice[0].value;
     } else {
       return "op.mp3";
     }
