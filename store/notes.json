@@ -1,0 +1,52 @@
+{
+    "notes": [
+        {
+            "note": "C",
+            "num": 0
+        },
+        {
+            "note": "Db",
+            "num": 1
+        },
+        {
+            "note": "D",
+            "num": 2
+        },
+        {
+            "note": "Eb",
+            "num": 3
+        },
+        {
+            "note": "E",
+            "num": 4
+        },
+        {
+            "note": "F",
+            "num": 5
+        },
+        {
+            "note": "Gb",
+            "num": 6
+        },
+        {
+            "note": "G",
+            "num": 7
+        },
+        {
+            "note": "Ab",
+            "num": 8
+        },
+        {
+            "note": "A",
+            "num": 9
+        },
+        {
+            "note": "Bb",
+            "num": 10
+        },
+        {
+            "note": "B",
+            "num": 11
+        }
+    ]
+}

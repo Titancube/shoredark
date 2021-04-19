@@ -1,0 +1,95 @@
+{
+    "diatonicScale": [
+        {
+            "name": "이오니안",
+            "name_en": "Ionian (Major)",
+            "scale": [
+                0,
+                2,
+                4,
+                5,
+                7,
+                9,
+                11
+            ]
+        },
+        {
+            "name": "도리안",
+            "name_en": "Dorian",
+            "scale": [
+                0,
+                2,
+                3,
+                5,
+                7,
+                9,
+                10
+            ]
+        },
+        {
+            "name": "프리지안",
+            "name_en": "Phrygian",
+            "scale": [
+                0,
+                1,
+                3,
+                5,
+                7,
+                8,
+                10
+            ]
+        },
+        {
+            "name": "리디안",
+            "name_en": "Lydian",
+            "scale": [
+                0,
+                2,
+                4,
+                6,
+                7,
+                9,
+                11
+            ]
+        },
+        {
+            "name": "믹소리디안",
+            "name_en": "Mixolydian",
+            "scale": [
+                0,
+                2,
+                4,
+                5,
+                7,
+                9,
+                10
+            ]
+        },
+        {
+            "name": "에올리안",
+            "name_en": "Aeolian (Natural minor)",
+            "scale": [
+                0,
+                2,
+                3,
+                5,
+                7,
+                8,
+                10
+            ]
+        },
+        {
+            "name": "로크리안",
+            "name_en": "Locrian",
+            "scale": [
+                0,
+                1,
+                3,
+                5,
+                6,
+                8,
+                10
+            ]
+        }
+    ]
+}
