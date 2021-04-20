@@ -8,6 +8,8 @@ export abstract class Generic {
     description: "* 방장에게 기부하기",
   })
   private donate(command: CommandMessage) {
-    command.channel.send("방장에게 기부하기 ➡ https://paypal.me/titancube");
+    command.channel.send(
+      "방장에게 기부하기 ➡ https://paypal.me/titancube\n`or`\n신한 이규빈 110-407-602480"
+    );
   }
 }
