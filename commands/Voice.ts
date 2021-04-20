@@ -62,7 +62,9 @@ export abstract class Voice {
       (variation) => variation.key === commandArgument
     );
 
-    if (
+    if (commandArgument && commandArgument == "아무말") {
+      return Voice.psyVariation[Math.floor(Math.random() * 6)].value;
+    } else if (
       commandArgument &&
       filteredVoice &&
       filteredVoice.length > 0 &&
