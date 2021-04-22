@@ -1,18 +1,18 @@
-import { Command, CommandMessage, Infos } from "@typeit/discord";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { Command, CommandMessage, Infos } from '@typeit/discord'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 export abstract class Generic {
-  @Command("도네")
+  @Command('도네')
   @Infos({
     command: `도네`,
-    detail: "`$도네`",
-    description: "* 방장에게 기부하기",
+    detail: '`$도네`',
+    description: '* 방장에게 기부하기',
   })
   private donate(command: CommandMessage) {
     command.channel.send(
-      "방장에게 기부하기 ➡ https://paypal.me/titancube\n`or`\n" +
+      '방장에게 기부하기 ➡ https://paypal.me/titancube\n`or`\n' +
         process.env.BANK_ACCOUNT
-    );
+    )
   }
 }
