@@ -15,10 +15,10 @@ export abstract class RandomShitpost {
     this.fetchTracks('Explorers%20of%20the%20Internet', 'KANKER!', command)
   }
 
-  @Command('랜덤쉬티피디아')
+  @Command('랜덤응과')
   @Infos({
-    command: `랜덤쉬티피디아`,
-    detail: '`$랜덤쉬티피디아`',
+    command: `랜덤응과`,
+    detail: '`$랜덤응과`',
     description: '* 쉬티피디아 트랙을 랜덤하게 가져옵니다',
   })
   private async randomShittypedia(command: CommandMessage): Promise<void> {
