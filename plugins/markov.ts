@@ -16,7 +16,7 @@ export class Markov {
   }
 
   static trim(text: string): string {
-    return text.toLowerCase().replace(/[\W_]/, '')
+    return text.toLowerCase().replace(/[\s_]/, '')
   }
 
   init(): void {
@@ -27,13 +27,13 @@ export class Markov {
     const textArr = this.state
 
     for (let i = 0; i < textArr.length; i++) {
-      const word = textArr[i].toLowerCase().replace(/[\W_]/, '')
+      const word = textArr[i].toLowerCase().replace(/[\s_]/, '')
       if (!this.markovChain[word]) {
         this.markovChain[word] = []
       }
       if (textArr[i + 1]) {
         this.markovChain[word].push(
-          textArr[i + 1].toLowerCase().replace(/[\W_]/, '')
+          textArr[i + 1].toLowerCase().replace(/[\s_]/, '')
         )
       }
     }
@@ -45,9 +45,12 @@ export class Markov {
     let result = ''
     for (let i = 0; i < count; i++) {
       result += word + ' '
+      console.log(this.state)
+      console.log(this.markovChain)
       const newWord = this.markovChain[word][
         Math.floor(Math.random() * this.markovChain[word].length)
       ]
+
       word = newWord
       if (!word || !this.markovChain)
         word = words[Math.floor(Math.random() * count)]
