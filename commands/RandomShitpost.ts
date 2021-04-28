@@ -5,24 +5,24 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export abstract class RandomShitpost {
-  @Command('randomeoti')
+  @Command('랜덤이오티')
   @Infos({
-    command: `randomeoti`,
-    detail: '`$randomeoti`',
-    description: '* Posts a random EOTI track.',
+    command: `랜덤이오티`,
+    detail: '`$랜덤이오티`',
+    description: '* EOTI 트랙을 랜덤하게 가져옵니다',
   })
   private async randomEoti(command: CommandMessage): Promise<void> {
-    this.fetchTracks('Explorers%20of%20the%20Internet', 'kanker!', command)
+    this.fetchTracks('Explorers%20of%20the%20Internet', 'KANKER!', command)
   }
 
-  @Command('randomshittypedia')
+  @Command('랜덤쉬티피디아')
   @Infos({
-    command: `randomshittypedia`,
-    detail: '`$randomshittypedia`',
-    description: '* Posts a random Shittypedia track.',
+    command: `랜덤쉬티피디아`,
+    detail: '`$랜덤쉬티피디아`',
+    description: '* 쉬티피디아 트랙을 랜덤하게 가져옵니다',
   })
   private async randomShittypedia(command: CommandMessage): Promise<void> {
-    this.fetchTracks('Shittypedia', 'gangnam style!', command)
+    this.fetchTracks('Shittypedia', '정말 알고싶은 정보였어요!', command)
   }
 
   /**
@@ -43,7 +43,7 @@ export abstract class RandomShitpost {
     const randomTrackNumber = randomInt(0, 50)
 
     command.channel.send(
-      `Enjoy your free ${message} ${searchResults.data.collection[randomTrackNumber].permalink_url}`
+      `${message} ${searchResults.data.collection[randomTrackNumber].permalink_url}`
     )
   }
 }
