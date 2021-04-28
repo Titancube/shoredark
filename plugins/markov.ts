@@ -45,8 +45,6 @@ export class Markov {
     let result = ''
     for (let i = 0; i < count; i++) {
       result += word + ' '
-      console.log(this.state)
-      console.log(this.markovChain)
       const newWord = this.markovChain[word][
         Math.floor(Math.random() * this.markovChain[word].length)
       ]

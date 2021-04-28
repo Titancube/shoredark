@@ -54,6 +54,11 @@ export abstract class Generic {
         count
       )
 
+      if (messagesToLearn.length < 5) {
+        command.channel.send('표본의 수가 너무 적습니다')
+        return
+      }
+
       const markov = new Markov()
 
       markov.addState(messagesToLearn)
