@@ -1,5 +1,5 @@
 import { Command, CommandMessage, Infos } from '@typeit/discord'
-import path from 'path'
+import { Voice as VoiceTools } from '../plugins/tools'
 
 interface Variation {
   key: string
@@ -7,37 +7,6 @@ interface Variation {
 }
 
 export abstract class Voice {
-  private static async voiceEmitter(
-    command: CommandMessage,
-    file: string,
-    volume: number
-  ) {
-    const vc = command.member.voice.channel
-    if (vc) {
-      const r = await vc.join()
-      const dispatcher = r.play(path.join(__dirname, `../assets/audio/${file}`))
-
-      dispatcher.setVolume(volume)
-
-      dispatcher
-        .on('finish', () => {
-          dispatcher.destroy()
-          command.member.voice.channel.leave()
-        })
-        .on('error', (e) => {
-          console.log(`
-          ${e.name}
-
-          ${e.message}
-
-          ${e.stack}
-          `)
-        })
-    } else {
-      command.channel.send('보이스 채널에 입장해주세요')
-    }
-  }
-
   private static psyVariation: Variation[] = [
     { key: '옵', value: 'op.mp3' },
     { key: '여자', value: 'girl.mp3' },
@@ -81,7 +50,7 @@ export abstract class Voice {
     description: '* 레이드니카 크래시',
   })
   private async crash(command: CommandMessage): Promise<void> {
-    Voice.voiceEmitter(command, 'radenika.wav', 0.25)
+    VoiceTools.voiceEmitter(command, 'radenika.wav', 0.25)
   }
 
   @Command('재상 :variation')
@@ -93,7 +62,7 @@ export abstract class Voice {
   private async psy(command: CommandMessage): Promise<void> {
     const { variation } = command.args
 
-    Voice.voiceEmitter(command, Voice.getPsyVoice(variation), 0.25)
+    VoiceTools.voiceEmitter(command, Voice.getPsyVoice(variation), 0.25)
   }
 
   @Command('잇섭')
@@ -103,7 +72,7 @@ export abstract class Voice {
     description: `* 잇섭 64`,
   })
   private async itsub(command: CommandMessage): Promise<void> {
-    Voice.voiceEmitter(command, 'itsub64.mp3', 0.25)
+    VoiceTools.voiceEmitter(command, 'itsub64.mp3', 0.25)
   }
 
   @Command('나가')

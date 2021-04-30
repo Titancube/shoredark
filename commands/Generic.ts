@@ -2,6 +2,7 @@ import { Command, CommandMessage, Infos } from '@typeit/discord'
 import db from '../plugins/firebase'
 import { Markov } from '../plugins/markov'
 import * as dotenv from 'dotenv'
+import { Validate } from '../plugins/tools'
 dotenv.config()
 
 export abstract class Generic {
@@ -28,10 +29,10 @@ export abstract class Generic {
   })
   private async say(command: CommandMessage): Promise<void> {
     const { tempPerson, tempCount } = command.args
-    const person: string = this.validateUser(tempPerson)
-      ? this.userStringParser(tempPerson)
-      : this.userStringParser(command.author.id)
-    const count: number = this.checkNumber(tempCount)
+    const person: string = Validate.validateUser(tempPerson)
+      ? Validate.userStringParser(tempPerson)
+      : Validate.userStringParser(command.author.id)
+    const count: number = Validate.checkNumber(tempCount)
       ? parseInt(tempCount + '')
       : 5
 
@@ -49,7 +50,7 @@ export abstract class Generic {
         tempMessageHolder.push(r.data().message)
       })
 
-      const messagesToLearn: Array<string> = this.wordsFilter(
+      const messagesToLearn: Array<string> = Validate.wordsFilter(
         tempMessageHolder,
         count
       )
@@ -66,52 +67,6 @@ export abstract class Generic {
       command.channel.send(markov.generate(count))
     } else {
       command.channel.send('존재하지 않는 유저입니다')
-    }
-  }
-
-  /**
-   * Trims discord mention's head & tail i.e `<!@...>`
-   * @param user discord mention
-   * @returns parsed by regex
-   */
-  private userStringParser(user: string) {
-    const validate = new RegExp(/([0-9])+/g)
-    return validate.exec(user)[0]
-  }
-
-  /**
-   * Check if `user` is valid id
-   * @param user
-   * @returns `boolean`
-   */
-  private validateUser(user: string): boolean {
-    const validate = new RegExp(/([0-9])+/g)
-    return user && validate.exec(user)[0] ? true : false
-  }
-
-  /**
-   * Filters valid sentences to train markov chain
-   * @param arr unfiltered message history
-   * @param count minimum length of the array of message history split by whitespace
-   * @returns array of filtered
-   */
-  private wordsFilter(arr: Array<string>, count: number) {
-    for (let i = count; i > 0; i--) {
-      const newArr: Array<string> = arr.filter((s) => s.split(' ').length >= i)
-      if (newArr.length >= 5) return newArr
-    }
-  }
-
-  /**
-   * Check if the property can be parsed into number and returns it
-   * @param num unknown
-   * @returns Parsed number if the `num` could be parsed
-   */
-  private checkNumber(num: unknown): boolean {
-    try {
-      return typeof num == 'number' ? true : false
-    } catch (e) {
-      console.error(`[${new Date()}] ${e}`)
     }
   }
 }
