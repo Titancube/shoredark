@@ -65,14 +65,14 @@ export abstract class Voice {
     VoiceTools.voiceEmitter(command, Voice.getPsyVoice(variation), 0.25)
   }
 
-  @Command('잇섭')
+  @Command('이물질')
   @Infos({
-    command: `잇섭`,
-    detail: '`$잇섭`',
-    description: `* 잇섭 64`,
+    command: `이물질`,
+    detail: '`$이물질`',
+    description: `* 잇섭이 이물질을 발견했습니다`,
   })
   private async itsub(command: CommandMessage): Promise<void> {
-    VoiceTools.voiceEmitter(command, 'itsub64.mp3', 0.25)
+    VoiceTools.voiceEmitter(command, 'Emulzil.mp3', 0.25)
   }
 
   @Command('나가')
