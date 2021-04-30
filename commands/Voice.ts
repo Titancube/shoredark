@@ -96,6 +96,16 @@ export abstract class Voice {
     Voice.voiceEmitter(command, Voice.getPsyVoice(variation), 0.25)
   }
 
+  @Command('잇섭')
+  @Infos({
+    command: `잇섭`,
+    detail: '`$잇섭`',
+    description: `* 잇섭 64`,
+  })
+  private async itsub(command: CommandMessage): Promise<void> {
+    Voice.voiceEmitter(command, 'itsub64.mp3', 0.25)
+  }
+
   @Command('나가')
   @Infos({
     command: `나가`,
