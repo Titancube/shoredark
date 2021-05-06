@@ -4,6 +4,8 @@ import { roles } from '../json/roles.json'
 import fs from 'fs'
 
 export abstract class Role {
+  RoleEmojiArray: string[] = []
+
   @Command('역할')
   @Guard(isAdmin)
   private async reactionMessage(command: CommandMessage) {
@@ -21,9 +23,15 @@ export abstract class Role {
           console.error(`[${new Date()}] ${e}`)
         }
       })
-    })
 
-    command.channel.send(this.roleListParser(roles))
+      if (e) {
+        console.error(`[${new Date()}] ${e}`)
+      }
+    })
+    const sent = await command.channel.send(this.roleListParser(roles))
+    this.RoleEmojiArray.forEach((el) => {
+      sent.react(el)
+    })
   }
 
   @On('messageReactionAdd')
@@ -58,15 +66,31 @@ export abstract class Role {
    * @param data json
    * @returns parsed list of roles
    */
-  private roleListParser(
-    data: { name: string; description: string; emoji: string; role: string }[]
-  ): string {
+  private roleListParser(data: RoleData[]): string {
     const enclosure = '```'
     let str = ''
     data.forEach((el) => {
       str += `${el.emoji} ${el.name} : ${el.description}\n`
     })
+    this.roleEmojiGetter(data)
 
     return `${enclosure}\n${str}\n${enclosure}`
   }
+
+  /**
+   * Assign emojis to RoleEmojiArray
+   * @param data Array of `RoleData`
+   */
+  private roleEmojiGetter(data: RoleData[]): void {
+    data.forEach((el) => {
+      this.RoleEmojiArray.push(el.emoji)
+    })
+  }
+}
+
+interface RoleData {
+  name: string
+  description: string
+  emoji: string
+  role: string
 }
