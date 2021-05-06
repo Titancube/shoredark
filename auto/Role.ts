@@ -28,9 +28,9 @@ export abstract class Role {
         console.error(`[${new Date()}] ${e}`)
       }
     })
-    const sent = await command.channel.send(this.roleListParser(roles))
+    const sentMessage = await command.channel.send(this.roleListParser(roles))
     this.RoleEmojiArray.forEach((el) => {
-      sent.react(el)
+      sentMessage.react(el)
     })
   }
 
