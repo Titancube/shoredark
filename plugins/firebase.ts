@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import serviceAccount from '../static/shoredark-app-d53fbacb894e.json'
+import serviceAccount from '../static/app_cred.json'
 
 const params = {
   //clone json object into new object to make typescript happy
