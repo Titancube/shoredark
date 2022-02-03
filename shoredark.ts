@@ -1,24 +1,22 @@
-import { Client } from "@typeit/discord";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { Intents } from 'discord.js'
+import { Client } from 'discordx'
+import * as dotenv from 'dotenv'
+import { Logger } from './plugins/tools'
+dotenv.config()
 
-export class Main {
-  private static _client: Client;
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
+  ],
+  silent: false,
+})
 
-  static get Client(): Client {
-    return this._client;
-  }
+client.on('ready', async () => {
+  Logger.log('Shoredark initiated.')
+  client.initApplicationCommands()
+  client.initApplicationPermissions()
+})
 
-  static start(): void {
-    this._client = new Client();
-    this._client.login(
-      process.env.CLIENT_TOKEN!,
-      `${__dirname}/discords/*.ts`,
-      `${__dirname}/discords/*.js`
-    );
-
-    console.log("Shorelight bot is up and running!");
-  }
-}
-
-Main.start();
+client.login(process.env.CLIENT_TOKEN)
