@@ -1,10 +1,23 @@
-import { Command, CommandMessage, Infos } from '@typeit/discord'
+import { CommandInteraction } from 'discord.js'
+import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
 
 interface Notes {
   note: string
   num: number
 }
 
+// Defaults are set to flat notes
+type IScale = [
+  '이오니안',
+  '도리안',
+  '프리지안',
+  '리디안',
+  '믹소리디안',
+  '에올리안',
+  '로크리안'
+]
+
+Discord()
 export abstract class Music {
   // list of all diatonic scales
   static diatonicScale = [
@@ -46,47 +59,73 @@ export abstract class Music {
   ]
 
   // List of all notes
+  // Default is set to flat, but will eventually find way to include sharps
   static notes = [
     { note: 'C', num: 0 },
+    // { note: 'C#', num: 1 },
     { note: 'Db', num: 1 },
     { note: 'D', num: 2 },
+    // { note: 'D#', num: 3 },
     { note: 'Eb', num: 3 },
     { note: 'E', num: 4 },
     { note: 'F', num: 5 },
+    // { note: 'F#', num: 6 },
     { note: 'Gb', num: 6 },
     { note: 'G', num: 7 },
+    // { note: 'G#', num: 8 },
     { note: 'Ab', num: 8 },
     { note: 'A', num: 9 },
+    // { note: 'A#', num: 10 },
     { note: 'Bb', num: 10 },
     { note: 'B', num: 11 },
   ]
 
   // Command `scale`
-  @Command('스케일 :key :scale')
-  @Infos({
-    command: `스케일`,
-    detail: '`$스케일 <C ~ B> <이오니안 ~ 로크리안>`',
+  @Slash('스케일', {
     description:
-      '* <C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```',
+      '<C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```',
   })
-  private showScale(command: CommandMessage) {
+  private showScale(
+    @SlashChoice('C')
+    @SlashChoice('Db')
+    @SlashChoice('D')
+    @SlashChoice('Eb')
+    @SlashChoice('E')
+    @SlashChoice('F')
+    @SlashChoice('Gb')
+    @SlashChoice('G')
+    @SlashChoice('Ab')
+    @SlashChoice('A')
+    @SlashChoice('Bb')
+    @SlashChoice('B')
+    @SlashOption('키', {
+      description: '스케일을 계산할 키를 선택해주세요.',
+      type: 'STRING',
+    })
+    key: string,
+    @SlashChoice('이오니안')
+    @SlashChoice('도리안')
+    @SlashChoice('프리지안')
+    @SlashChoice('리디안')
+    @SlashChoice('믹소리디안')
+    @SlashChoice('에올리안')
+    @SlashChoice('로크리안')
+    @SlashOption('스케일', {
+      description: '계산할 스케일를 선택해주세요.',
+      type: 'STRING',
+    })
+    scale: string,
+    command: CommandInteraction
+  ) {
     // key: Assign `C` if argument does not exist.
-    const key = command.args.key
-      ? (command.args.key + '').charAt(0).toUpperCase() +
-        (command.args.key + '').slice(1).toLowerCase()
-      : 'C'
     // scale: Assign `Ionian` if argument does not exist
-    const scale = command.args.scale ? command.args.scale : '이오니안'
 
-    Music.validate(key, scale)
-      ? command.channel.send(
-          // i.e `C Ionian scale`
-          `근음이 ${key} 일 때의 ${scale} 스케일 - ${Music.getEnglishName(
-            scale
-          )} scale\n\`${Music.getScale(key, scale)}\``
-        )
-      : // `Please input valid key and scale`
-        command.channel.send('근음과 스케일을 정확히 입력해주세요.')
+    command.channel.send(
+      // i.e `C Ionian scale`
+      `근음이 ${key} 일 때의 ${scale} 스케일 - ${Music.getEnglishName(
+        scale
+      )} scale\n\`${Music.getScale(key, scale)}\``
+    )
   }
 
   // Return shifted list of all notes matching to the given key as root note
