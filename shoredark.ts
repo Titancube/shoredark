@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { format } from 'date-fns'
 import { Intents } from 'discord.js'
 import { Client } from 'discordx'
@@ -37,7 +38,7 @@ async function start() {
       Logger.log('Initializing current slash commands...')
       await client.initApplicationCommands()
       Logger.log('...DONE')
-      Logger.log('Kankertron is Ready')
+      Logger.log('Shoredark is Ready')
     })
 
     client.on('interactionCreate', (interaction) => {
