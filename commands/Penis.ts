@@ -1,19 +1,16 @@
-import { Command, CommandMessage, Infos } from '@typeit/discord'
+import { CommandInteraction } from 'discord.js'
+import { Discord, Slash } from 'discordx'
 import db from '../plugins/firebase'
 
+@Discord()
 export abstract class Penis {
-  @Command('ㅈ')
-  @Infos({
-    command: `ㅈ`,
-    detail: '`$ㅈ`',
-    description: '* 신이 주사위를 굴립니다.',
-  })
-  private async penis(command: CommandMessage): Promise<void> {
+  @Slash('ㅈ', { description: '신이 주사위를 굴립니다.' })
+  private async penis(command: CommandInteraction): Promise<void> {
     const testicles = '3'
     const glans = 'D'
     const stick = '='
 
-    const snapshot = db.collection('Member').doc(command.author.id)
+    const snapshot = db.collection('Member').doc(command.user.id)
     const r = await snapshot.get()
 
     const fate = (): number => {

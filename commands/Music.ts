@@ -17,7 +17,7 @@ type IScale = [
   '로크리안'
 ]
 
-Discord()
+@Discord()
 export abstract class Music {
   // list of all diatonic scales
   static diatonicScale = [
