@@ -1,89 +1,48 @@
-import { CommandMessage } from '@typeit/discord'
-import path from 'path'
+import { format } from 'date-fns';
+import * as fs from 'fs';
 
-export class Validate {
-  /**
-   * Trims discord mention's head & tail i.e `<!@...>`
-   * @param user discord mention
-   * @returns parsed by regex
-   */
-  static userStringParser(user: string): string {
-    const validate = new RegExp(/([0-9])+/g)
-    return validate.exec(user)[0]
+export class Misc {
+  static get currentTime(): string {
+    return format(new Date(), 'MM-dd HH:mm:ss.SSS');
+  }
+}
+
+export class Logger {
+  static log(str: string, error?: boolean): void {
+    const msgConstructor: string[] = [
+      Misc.currentTime,
+      '|',
+      error ? `<<!>>` + str : str,
+    ];
+    const msg = msgConstructor.join(' ');
+    error ? console.error(msg) : console.log(msg);
+    Logger.writeLog(msg);
   }
 
-  /**
-   * Check if `user` is valid id
-   * @param user
-   * @returns `boolean`
-   */
-  static validateUser(user: string): boolean {
-    const validate = new RegExp(/([0-9])+/g)
-    return user && validate.exec(user)[0] ? true : false
-  }
-
-  /**
-   * Filters valid sentences to train markov chain
-   * @param arr unfiltered message history
-   * @param count minimum length of the array of message history split by whitespace
-   * @returns array of filtered
-   */
-  static wordsFilter(arr: Array<string>, count: number): Array<string> {
-    for (let i = count; i > 0; i--) {
-      const newArr: Array<string> = arr.filter((s) => s.split(' ').length >= i)
-      if (newArr.length >= 5) return newArr
-    }
-  }
-
-  /**
-   * Check if the property can be parsed into number and returns it
-   * @param num unknown
-   * @returns Parsed number if the `num` could be parsed
-   */
-  static checkNumber(num: unknown): boolean {
+  static writeLog(str: string, direct?: boolean): void {
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const logDirectory = `./log`;
+    const logFileName = `kankertron_${today}.log`;
     try {
-      return typeof num == 'number' ? true : false
-    } catch (e) {
-      console.error(`[${new Date()}] ${e}`)
+      if (direct) console.log(str);
+      if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory);
+      fs.appendFileSync(`${logDirectory}/${logFileName}`, str + '\r\n');
+    } catch (error) {
+      console.error;
     }
   }
 }
 
-export class Voice {
+export class Validate {
   /**
-   * Audio file fetcher for Voice channels
-   * @param command `CommandMessage`
-   * @param file filename
-   * @param volume volume
+   * Filters discord's snowflake ID in given string
+   * @param str
+   * @returns Snowflake as string
    */
-  static async voiceEmitter(
-    command: CommandMessage,
-    file: string,
-    volume: number
-  ): Promise<void> {
-    const vc = command.member.voice.channel
-    if (vc) {
-      const r = await vc.join()
-      const dispatcher = r.play(path.join(__dirname, `../assets/audio/${file}`))
-
-      dispatcher.setVolume(volume)
-
-      dispatcher
-        .on('finish', () => {
-          dispatcher.destroy()
-          command.member.voice.channel.leave()
-        })
-        .on('error', (e) => {
-          console.log(`
-          ${e.name}
-
-          ${e.message}
-
-          ${e.stack}
-          `)
-        })
-    } else {
-      command.channel.send('보이스 채널에 입장해주세요')
+  static filterSnowflake(str: string): string {
+    if (str.startsWith('<#') || (str.startsWith('<@') && str.endsWith('>'))) {
+      const validate = new RegExp(/([0-9]+)/g);
+      return validate.exec(str)[0];
     }
   }
 }
