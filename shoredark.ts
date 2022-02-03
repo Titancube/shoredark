@@ -37,6 +37,7 @@ async function start() {
       )
       Logger.log('Initializing current slash commands...')
       await client.initApplicationCommands()
+      await client.initApplicationPermissions()
       Logger.log('...DONE')
       Logger.log('Shoredark is Ready')
     })
