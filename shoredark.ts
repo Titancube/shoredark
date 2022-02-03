@@ -4,6 +4,7 @@ import { Intents } from 'discord.js'
 import { Client } from 'discordx'
 import * as dotenv from 'dotenv'
 import { Logger } from './plugins/tools'
+import { dirname, importx } from '@discordx/importer'
 dotenv.config({ path: __dirname + '/.env' })
 
 async function start() {
@@ -36,6 +37,7 @@ async function start() {
         true
       )
       Logger.log('Initializing current slash commands...')
+      await importx(dirname(__dirname + '/{commands}/**/*.{ts,js}'))
       await client.initApplicationCommands()
       await client.initApplicationPermissions()
       Logger.log('...DONE')
