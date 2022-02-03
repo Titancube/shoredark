@@ -1,22 +1,54 @@
+import { format } from 'date-fns'
 import { Intents } from 'discord.js'
 import { Client } from 'discordx'
 import * as dotenv from 'dotenv'
 import { Logger } from './plugins/tools'
-dotenv.config()
+dotenv.config({ path: __dirname + '/.env' })
 
-const client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MEMBERS,
-  ],
-  silent: false,
-})
+async function start() {
+  const client = new Client({
+    intents: [
+      Intents.FLAGS.GUILDS,
+      Intents.FLAGS.GUILD_MESSAGES,
+      Intents.FLAGS.GUILD_VOICE_STATES,
+      Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+      Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+      Intents.FLAGS.DIRECT_MESSAGES,
+      Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+      Intents.FLAGS.GUILD_INTEGRATIONS,
+      Intents.FLAGS.GUILD_PRESENCES,
+      Intents.FLAGS.GUILD_WEBHOOKS,
+      Intents.FLAGS.GUILD_MEMBERS,
+      Intents.FLAGS.GUILD_INVITES,
+      Intents.FLAGS.GUILD_BANS,
+    ],
+    botGuilds: [process.env.GUILD_ID!],
+    silent: false,
+  })
 
-client.on('ready', async () => {
-  Logger.log('Shoredark initiated.')
-  client.initApplicationCommands()
-  client.initApplicationPermissions()
-})
+  try {
+    client.on('ready', async () => {
+      console.clear()
+      Logger.writeLog(`\r\n${'-'.repeat(10)} Shoredark ${'-'.repeat(10)}`, true)
+      Logger.writeLog(
+        `Booted at ${format(new Date(), 'yyyy-MM-dd HH:mm:ss:SSS')}\r\n`,
+        true
+      )
+      Logger.log('Initializing current slash commands...')
+      await client.initApplicationCommands()
+      Logger.log('...DONE')
+      Logger.log('Kankertron is Ready')
+    })
 
-client.login(process.env.CLIENT_TOKEN)
+    client.on('interactionCreate', (interaction) => {
+      client.executeInteraction(interaction)
+    })
+
+    client.login(process.env.CLIENT_TOKEN)
+  } catch (e) {
+    Logger.log('Exception', true)
+    console.error(e)
+  }
+}
+
+start()
