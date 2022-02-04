@@ -82,8 +82,7 @@ export abstract class Music {
 
   // Command `scale`
   @Slash('스케일', {
-    description:
-      '<C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```',
+    description: '선택한 키에 맞춰 스케일을 계산합니다.',
   })
   private showScale(
     @SlashChoice('C', 'C')
