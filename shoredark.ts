@@ -37,6 +37,7 @@ async function start() {
         true
       )
       Logger.log('Initializing current slash commands...')
+      await client.clearApplicationCommands(process.env.GUILD_ID)
       await client.initApplicationCommands()
       await client.initApplicationPermissions()
       Logger.log('...DONE')
