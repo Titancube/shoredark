@@ -119,7 +119,7 @@ export abstract class Music {
     // key: Assign `C` if argument does not exist.
     // scale: Assign `Ionian` if argument does not exist
 
-    command.channel.send(
+    return command.reply(
       // i.e `C Ionian scale`
       `근음이 ${key} 일 때의 ${scale} 스케일 - ${Music.getEnglishName(
         scale

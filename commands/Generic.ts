@@ -69,13 +69,13 @@ export abstract class Generic {
 
       markov.addState(messagesToLearn)
       markov.train()
-      command.reply(
+      return command.reply(
         `${Validate.filterSnowflake(user.displayName)}: ${markov.generate(
           length
         )}`
       )
     } else {
-      command.reply('존재하지 않는 유저입니다.')
+      return command.reply('존재하지 않는 유저입니다.')
     }
   }
 }
