@@ -86,30 +86,30 @@ export abstract class Music {
       '<C ~ B>: `C` 부터 `B` 까지의 근음을 선택합니다. 플랫만 허용합니다.\n* <이오니안 ~ 로크리안>: 다음 중 한가지 스케일을 선택합니다.\n```\n이오니안\n도리안\n프리지안\n리디안\n믹소리디안\n에올리안\n로크리안\n```',
   })
   private showScale(
-    @SlashChoice('C')
-    @SlashChoice('Db')
-    @SlashChoice('D')
-    @SlashChoice('Eb')
-    @SlashChoice('E')
-    @SlashChoice('F')
-    @SlashChoice('Gb')
-    @SlashChoice('G')
-    @SlashChoice('Ab')
-    @SlashChoice('A')
-    @SlashChoice('Bb')
-    @SlashChoice('B')
+    @SlashChoice('C', 'C')
+    @SlashChoice('Db', 'Db')
+    @SlashChoice('D', 'D')
+    @SlashChoice('Eb', 'Eb')
+    @SlashChoice('E', 'E')
+    @SlashChoice('F', 'F')
+    @SlashChoice('Gb', 'Gb')
+    @SlashChoice('G', 'G')
+    @SlashChoice('Ab', 'Ab')
+    @SlashChoice('A', 'A')
+    @SlashChoice('Bb', 'Bb')
+    @SlashChoice('B', 'B')
     @SlashOption('키', {
       description: '스케일을 계산할 키를 선택해주세요.',
       type: 'STRING',
     })
     key: string,
-    @SlashChoice('이오니안')
-    @SlashChoice('도리안')
-    @SlashChoice('프리지안')
-    @SlashChoice('리디안')
-    @SlashChoice('믹소리디안')
-    @SlashChoice('에올리안')
-    @SlashChoice('로크리안')
+    @SlashChoice('이오니안', '이오니안')
+    @SlashChoice('도리안', '도리안')
+    @SlashChoice('프리지안', '프리지안')
+    @SlashChoice('리디안', '리디안')
+    @SlashChoice('믹소리디안', '믹소리디안')
+    @SlashChoice('에올리안', '에올리안')
+    @SlashChoice('로크리안', '로크리안')
     @SlashOption('스케일', {
       description: '계산할 스케일를 선택해주세요.',
       type: 'STRING',
