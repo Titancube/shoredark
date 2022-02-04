@@ -37,7 +37,6 @@ async function start() {
         true
       )
       Logger.log('Initializing current slash commands...')
-      await importx(dirname(__dirname + '/commands/**/*.{ts,js}'))
       await client.initApplicationCommands()
       await client.initApplicationPermissions()
       Logger.log('...DONE')
@@ -47,6 +46,8 @@ async function start() {
     client.on('interactionCreate', (interaction) => {
       client.executeInteraction(interaction)
     })
+
+    await importx(`${__dirname}/commands/**/*.{ts,js}`)
 
     client.login(process.env.CLIENT_TOKEN)
   } catch (e) {
