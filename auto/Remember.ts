@@ -1,11 +1,11 @@
-import { ArgsOf, Guard, On } from '@typeit/discord'
+import { ArgsOf, Guard, On } from 'discordx'
 import { NotBot } from '../guards/NotBot'
 import db from '../plugins/firebase'
 
 export abstract class Remember {
-  @On('message')
+  @On('messageCreate')
   @Guard(NotBot)
-  async remember([msg]: ArgsOf<'message'>): Promise<void> {
+  async remember([msg]: ArgsOf<'messageCreate'>): Promise<void> {
     // Cancel saving if the message is a command, empty or is in admin channel
     if (
       msg.content.startsWith('$') ||

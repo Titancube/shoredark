@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv'
 import { Logger, Validate } from '../plugins/tools'
 dotenv.config()
 
-Discord()
+@Discord()
 export abstract class Generic {
   @Slash('도네', { description: '방장에게 기부하기' })
   private donate(command: CommandInteraction) {

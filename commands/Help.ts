@@ -1,7 +1,7 @@
 import { CommandInteraction } from 'discord.js'
 import { Client, Discord, Slash } from 'discordx'
 
-Discord()
+@Discord()
 export abstract class Help {
   @Slash('도움', {
     description:
