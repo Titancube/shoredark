@@ -30,12 +30,13 @@ export abstract class Penis {
       const penis =
         testicles + stick.repeat(penisConstructor(fate()) / 10) + glans
       await snapshot.set({ penis: penis }, { merge: true })
-      command.channel.send(penis)
+      return command.reply(penis)
     }
 
     if (r.exists) {
       if (r.data().penis !== undefined) {
-        command.channel.send(r.data().penis)
+        const penis: string = r.data().penis
+        return command.reply(penis)
       } else {
         godHasSpoken()
       }
