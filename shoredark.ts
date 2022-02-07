@@ -4,7 +4,7 @@ import { Intents } from 'discord.js'
 import { Client } from 'discordx'
 import * as dotenv from 'dotenv'
 import { Logger } from './plugins/tools'
-import { dirname, importx } from '@discordx/importer'
+import { importx } from '@discordx/importer'
 dotenv.config({ path: __dirname + '/.env' })
 
 async function start() {
@@ -25,7 +25,6 @@ async function start() {
       Intents.FLAGS.GUILD_BANS,
     ],
     botGuilds: [process.env.GUILD_ID!],
-    silent: false,
   })
 
   try {
