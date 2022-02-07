@@ -19,9 +19,10 @@ export abstract class Generic {
   }
 
   // imitates target person
-  @Slash('말', {
-    description: '멘션된 사람의 채팅 기록을 보고 새 메시지를 만들어 냅니다.',
-  })
+  // Currently not working, will fix later
+  // @Slash('말', {
+  //   description: '멘션된 사람의 채팅 기록을 보고 새 메시지를 만들어 냅니다.',
+  // })
   private async say(
     @SlashOption('유저', {
       description: '따라할 사람을 선택합니다.',
