@@ -1,14 +1,15 @@
-import { Command, CommandMessage, Guard, On } from '@typeit/discord'
-import { isAdmin } from '../guards/isAdmin'
+import { On, Permission, Slash } from 'discordx'
 import { roles } from '../json/roles.json'
 import fs from 'fs'
+import { CommandInteraction } from 'discord.js'
 
 export abstract class Role {
   RoleEmojiArray: string[] = []
 
-  @Command('역할')
-  @Guard(isAdmin)
-  private async reactionMessage(command: CommandMessage) {
+  @Permission(false)
+  @Permission({ id: '309652944289136650', type: 'ROLE', permission: true })
+  @Slash('역할', { description: '역할 할당에 대한 설명을 띄웁니다' })
+  private async reactionMessage(command: CommandInteraction) {
     const sendMessage = await command.channel.send(
       'Shorelight에서는 역할에 따라 볼 수 있는 채널 카테고리를 다르게 하고 있습니다.\n아래 대응하는 리액션을 눌러 원하는 채널에 입장해보세요. 역할을 제거하려면 다시 누르시면 됩니다.'
     )
