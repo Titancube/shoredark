@@ -61,13 +61,15 @@ export class Markov {
 
   /**
    * Filters valid sentences to train markov chain
-   * @param arr unfiltered message history
+   * @param message unfiltered message history
    * @param count minimum length of the array of message history split by whitespace
    * @returns array of filtered
    */
-  static wordsFilter(arr: Array<string>, count: number): Array<string> {
-    for (let i = count; i > 0; i--) {
-      const newArr: Array<string> = arr.filter((s) => s.split(' ').length >= i)
+  static wordsFilter(message: Array<string>, count: number): Array<string> {
+    for (let iterator = count; iterator > 0; iterator--) {
+      const newArr: Array<string> = message.filter(
+        (s) => s.split(' ').length >= iterator
+      )
       if (newArr.length >= 5) return newArr
     }
   }
