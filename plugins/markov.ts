@@ -4,13 +4,17 @@ export class Markov {
   private state: string[] = []
   private markovChain: { [index: string]: string[] } = {}
 
-  addState(text: Array<string> | string): void {
-    if (Array.isArray(text)) {
-      Array.from(text).forEach((v: string) =>
-        v.split(' ').forEach((n: string) => this.state.push(Markov.trim(n)))
+  addState(message: Array<string> | string): void {
+    if (Array.isArray(message)) {
+      Array.from(message).forEach((word: string) =>
+        word
+          .split(' ')
+          .forEach((char: string) => this.state.push(Markov.trim(char)))
       )
-    } else if (typeof text == 'string') {
-      text.split(' ').forEach((v: string) => this.state.push(Markov.trim(v)))
+    } else if (typeof message == 'string') {
+      message
+        .split(' ')
+        .forEach((word: string) => this.state.push(Markov.trim(word)))
     }
   }
 
@@ -42,7 +46,7 @@ export class Markov {
     const words: string[] = Object.keys(this.markovChain)
     let word = words[Math.floor(Math.random() * (words.length ?? 10))]
     let result = ''
-    for (let i = 0; i < count; i++) {
+    for (let iteration = 0; iteration < count; iteration++) {
       result += word + ' '
       const newWord =
         this.markovChain[word][
