@@ -16,6 +16,8 @@ export abstract class Generic {
         process.env.BANK_ACCOUNT,
       ephemeral: true,
     })
+
+    Logger.log(`Command: Donation log >> ${command.user.username}`)
   }
 
   // imitates target person
