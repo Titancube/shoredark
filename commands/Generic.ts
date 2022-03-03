@@ -3,7 +3,7 @@ import { CommandInteraction, GuildMember } from 'discord.js'
 import db from '../plugins/firebase'
 import { Markov } from '../plugins/markov'
 import * as dotenv from 'dotenv'
-import { Logger, Validate } from '../plugins/tools'
+import { Logger, MessageComposer, Validate } from '../plugins/tools'
 dotenv.config()
 
 @Discord()
@@ -20,8 +20,10 @@ export abstract class Generic {
     Logger.log(`Command: Donation log >> ${command.user.username}`)
   }
 
-  // imitates target person
-  // Currently not working, will fix later
+  // * SAY FUNCTION
+  //  imitates target person
+  //  Currently not working, will fix later
+  //  ================================================================================
   // @Slash('말', {
   //   description: '멘션된 사람의 채팅 기록을 보고 새 메시지를 만들어 냅니다.',
   // })
@@ -45,6 +47,7 @@ export abstract class Generic {
     Logger.log(
       `Imitation log >> USER ${user.id} (${user.displayName}) | LENGTH ${length}`
     )
+
     const tempMessageHolder = []
     const getHistory = await db
       .collection('Member')
@@ -80,5 +83,63 @@ export abstract class Generic {
     } else {
       return command.reply('존재하지 않는 유저입니다.')
     }
+  }
+
+  // * Show birthdays list
+  // ! Unfinished !
+  @Slash('생일', {
+    description: '이번 달 및 다음 달 생일인 멤버를 확인합니다.',
+  })
+  private async birthday(command: CommandInteraction) {
+    const birthdayList: { id: string; birthday: Date }[] = []
+    const response = await db
+      .collection('Member')
+      .where('birthday', '!=', null || '')
+      .orderBy('birthday', 'desc')
+      .get()
+    // Try to get birthdays
+    try {
+      // Push each data containing id and birthday into birthdayList if reponse is not empty
+      if (!response.empty) {
+        response.forEach((element) => {
+          birthdayList.push({
+            id: element.id,
+            birthday: element.data().birthday,
+          })
+        })
+      }
+    } catch (error) {
+      // Push error to log file
+      Logger.log(error, true)
+    } finally {
+      // Return composed message
+      return birthdayList.length > 0
+        ? command.reply({
+            content: MessageComposer.composeBirthdayMessage(birthdayList),
+            ephemeral: true,
+          })
+        : command.reply('등록된 생일이 없습니다.')
+    }
+  }
+
+  // * Add user's own birthday
+  @Slash('생일등록', {
+    description: '자신의 생일을 등록합니다.',
+  })
+  private addOwnBirthday(
+    @SlashOption('yyyy')
+    year: number,
+    @SlashOption('mm')
+    month: number,
+    @SlashOption('dd')
+    date: number,
+    command: CommandInteraction
+  ) {
+    const userId = command.user.id
+    const birthday = new Date(year, month, date)
+
+    db.collection('Member')
+      .doc(userId)
+      .set({ birthday: birthday }, { merge: true })
   }
 }
