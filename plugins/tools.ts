@@ -46,3 +46,23 @@ export class Validate {
     }
   }
 }
+
+export class MessageComposer {
+  static composeBirthdayMessage(
+    birthdayObjects: { id: string; birthday: Date }[]
+  ): string {
+    const composedMessages: Array<string> = []
+
+    birthdayObjects.forEach((v) =>
+      composedMessages.push(
+        `${v.id} 님의 생일은 ${format(v.birthday, 'M월 d일')} 입니다.`
+      )
+    )
+
+    return `\`\`\`
+        생일 리스트
+
+        ${composedMessages.join('\n')}
+    \`\`\``
+  }
+}
